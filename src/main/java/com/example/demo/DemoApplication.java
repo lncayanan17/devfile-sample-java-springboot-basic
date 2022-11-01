@@ -21,7 +21,7 @@ public class DemoApplication {
     private String username = "etechlog_azure_ete";
     private String password = "etechlog_azure_pwd";
     //private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
-    private String remoteDir = "etlg001/in/";
+    private String remoteDir = "etlg002-lucky/in/";
 
     @RequestMapping("/")
     String home() throws IOException {
@@ -63,7 +63,7 @@ public class DemoApplication {
             //System.out.println(line);
             SSHClient sshClient = setupSshj();
             SFTPClient sftpClient = sshClient.newSFTPClient();
-            sftpClient.put(absolutePath, remoteDir);
+            sftpClient.put(absolutePath, remoteDir + "sshjFile.txt");
             sftpClient.close();
             sshClient.disconnect();
         //}
