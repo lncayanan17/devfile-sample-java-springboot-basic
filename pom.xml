@@ -16,7 +16,12 @@
 
 	<properties>
 		<java.version>11</java.version>
-	</properties>
+        <!-- sftp -->
+        <jsch.version>0.1.55</jsch.version>
+        <sshj.version>0.27.0</sshj.version>
+        <vfs.version>2.4</vfs.version>
+        <zip4j.version>2.9.0</zip4j.version>
+    </properties>
 
 	<dependencies>
 		<dependency>
@@ -39,6 +44,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>${jsch.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hierynomus</groupId>
+            <artifactId>sshj</artifactId>
+            <version>${sshj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-vfs2</artifactId>
+            <version>${vfs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>${zip4j.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
