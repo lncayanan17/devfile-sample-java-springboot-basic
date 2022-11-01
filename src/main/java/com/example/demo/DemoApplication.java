@@ -11,9 +11,7 @@ import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.sftp.SFTPClient;
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.File;
 
 @RestController
 @SpringBootApplication
@@ -44,17 +42,31 @@ public class DemoApplication {
     }
 
     public void whenUploadFileUsingSshj_thenSuccess() throws IOException {
-        InputStream is = DemoApplication.class.getResourceAsStream("/B-LUC-202210280305-CX777.xml");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
+
+        String resourceName = "B-LUC-202210280305-CX777.xml";
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(resourceName).getFile());
+        String absolutePath = file.getAbsolutePath();
+
+        System.out.println(absolutePath);
+
+        //assertTrue(absolutePath.endsWith("/example_resource.txt"));
+
+        //InputStream is = DemoApplication.class.getResourceAsStream("/B-LUC-202210280305-CX777.xml");
+        //BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        
+        //BufferedReader br = new BufferedReader(new FileReader(new File("src/main/resources/temp.txt")));
+
+        //String line;
+        //while ((line = reader.readLine()) != null) {
+            //System.out.println(line);
             SSHClient sshClient = setupSshj();
             SFTPClient sftpClient = sshClient.newSFTPClient();
-            sftpClient.put(line, remoteDir);
+            sftpClient.put(absolutePath, remoteDir);
             sftpClient.close();
             sshClient.disconnect();
-        }
+        //}
 
         
     }
