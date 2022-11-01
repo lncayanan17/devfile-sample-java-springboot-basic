@@ -18,8 +18,8 @@ public class DemoApplication {
     private String remoteHost = "mft-int-pat.ete.cathaypacific.com";
     private String username = "etechlog_azure_ete";
     private String password = "etechlog_azure_pwd";
-    private String localFile = "src/main/resources/input.txt";
-    private String remoteDir = "remote_sftp_test/";
+    private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
+    private String remoteDir = "etlg001/in/";
 
     @RequestMapping("/")
     String home() throws IOException {
@@ -42,7 +42,7 @@ public class DemoApplication {
     public void whenUploadFileUsingSshj_thenSuccess() throws IOException {
         SSHClient sshClient = setupSshj();
         SFTPClient sftpClient = sshClient.newSFTPClient();
-        sftpClient.put(localFile, remoteDir + "sshjFile.txt");
+        sftpClient.put(localFile, remoteDir);
         sftpClient.close();
         sshClient.disconnect();
     }
