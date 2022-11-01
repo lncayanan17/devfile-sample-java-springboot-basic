@@ -11,6 +11,10 @@ import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.sftp.SFTPClient;
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 @RestController
 @SpringBootApplication
 public class DemoApplication {
@@ -18,7 +22,7 @@ public class DemoApplication {
     private String remoteHost = "mft-int-pat.ete.cathaypacific.com";
     private String username = "etechlog_azure_ete";
     private String password = "etechlog_azure_pwd";
-    private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
+    //private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
     private String remoteDir = "etlg001/in/";
 
     @RequestMapping("/")
@@ -40,11 +44,19 @@ public class DemoApplication {
     }
 
     public void whenUploadFileUsingSshj_thenSuccess() throws IOException {
-        SSHClient sshClient = setupSshj();
-        SFTPClient sftpClient = sshClient.newSFTPClient();
-        sftpClient.put(localFile, remoteDir);
-        sftpClient.close();
-        sshClient.disconnect();
+        InputStream is = DemoApplication.class.getResourceAsStream("/B-LUC-202210280305-CX777.xml");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+            SSHClient sshClient = setupSshj();
+            SFTPClient sftpClient = sshClient.newSFTPClient();
+            sftpClient.put(line, remoteDir);
+            sftpClient.close();
+            sshClient.disconnect();
+        }
+
+        
     }
 
 }
