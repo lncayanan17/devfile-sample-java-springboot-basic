@@ -8,13 +8,19 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.service.FileTransferService;
 
-import java.io.IOException;
-
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.sftp.SFTPClient;
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
 
 import java.io.File;
+
+import org.springframework.integration.sftp.session.DefaultSftpSessionFactory;
+import org.springframework.integration.sftp.session.SftpSession;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDateTime;
 
 @Component
 public class TestSftpFileTransfer implements CommandLineRunner {
@@ -38,11 +44,13 @@ public class TestSftpFileTransfer implements CommandLineRunner {
 		//logger.info("Download result: " + String.valueOf(isDownloaded));
 		
 		logger.info("Start upload file");
-		boolean isUploaded = fileTransferService.uploadFile("/tmp/B-LUC-202210280305-CX777.xml", remoteDir +"/"+ "readme.txt");
+		//boolean isUploaded = fileTransferService.uploadFile("/tmp/B-LUC-202210280305-CX777.xml", remoteDir +"/"+ "readme.txt");
 		
 		//this.whenUploadFileUsingSshj_thenSuccess();
 		
-        //Boolean isUploaded = true;
+        this.upload();
+
+        boolean isUploaded = true;
 		logger.info("Upload result SSH: " + String.valueOf(isUploaded));
 
 	}
@@ -72,6 +80,28 @@ public class TestSftpFileTransfer implements CommandLineRunner {
         sftpClient.put("/tmp/B-LUC-202210280305-CX777.xml", remoteDir + "/" + "outputFile.txt");
         sftpClient.close();
         sshClient.disconnect();
+    }
+
+    private DefaultSftpSessionFactory gimmeFactory(){
+        DefaultSftpSessionFactory factory = new DefaultSftpSessionFactory();
+        factory.setHost("mft-int-pat.ete.cathaypacific.com");
+        factory.setPort(22);
+        factory.setAllowUnknownKeys(true);
+        factory.setUser("etechlog_azure_ete");
+        factory.setPassword("etechlog_azure_pwd");
+        return factory;
+    }
+
+    public void upload(){
+
+        SftpSession session = gimmeFactory().getSession();
+        InputStream resourceAsStream = TestSftpFileTransfer.class.getClassLoader().getResourceAsStream("mytextfile.txt");
+        try {
+            session.write(resourceAsStream, makeOwnDir +"/"+ "mynewfile" + LocalDateTime.now() +".txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        session.close();
     }
 
 }
