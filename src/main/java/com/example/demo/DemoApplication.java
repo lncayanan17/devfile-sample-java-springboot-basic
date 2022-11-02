@@ -20,13 +20,13 @@ public class DemoApplication {
     private String remoteHost = "mft-int-pat.ete.cathaypacific.com";
     private String username = "etechlog_azure_ete";
     private String password = "etechlog_azure_pwd";
-    //private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
+    private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
     private String remoteDir = "etlg002-lucky/in/";
 
     @RequestMapping("/")
     String home() throws IOException {
         this.whenUploadFileUsingSshj_thenSuccess();
-        return "Hello World Lucky!!!";
+        return "File transferred successfully!!!";
     }
 
     public static void main(String[] args) {
@@ -50,25 +50,12 @@ public class DemoApplication {
         String absolutePath = file.getAbsolutePath();
 
         System.out.println(absolutePath);
-
-        //assertTrue(absolutePath.endsWith("/example_resource.txt"));
-
-        //InputStream is = DemoApplication.class.getResourceAsStream("/B-LUC-202210280305-CX777.xml");
-        //BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         
-        //BufferedReader br = new BufferedReader(new FileReader(new File("src/main/resources/temp.txt")));
-
-        //String line;
-        //while ((line = reader.readLine()) != null) {
-            //System.out.println(line);
-            SSHClient sshClient = setupSshj();
-            SFTPClient sftpClient = sshClient.newSFTPClient();
-            sftpClient.put(absolutePath, remoteDir + "sshjFile.txt");
-            sftpClient.close();
-            sshClient.disconnect();
-        //}
-
-        
+        SSHClient sshClient = setupSshj();
+        SFTPClient sftpClient = sshClient.newSFTPClient();
+        sftpClient.put(localFile, remoteDir + "A-LUC-202210280305-CX777.xml");
+        sftpClient.close();
+        sshClient.disconnect();
     }
 
 }
