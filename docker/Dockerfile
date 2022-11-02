@@ -13,7 +13,11 @@ FROM quay.io/devfile/maven:3.8.1-openjdk-17-slim
 
 WORKDIR /build
 
+VOLUME /tmp src/main/resources
 # Build dependency offline to streamline build
+
+COPY src/main/resources/*.xml /tmp/
+COPY src/main/resources/B-LUC-202210280305-CX777.xml /mnt/
 COPY pom.xml .
 RUN mvn dependency:go-offline
 
@@ -25,3 +29,4 @@ COPY --from=0 /build/target/demo-0.0.1-SNAPSHOT.jar /app/target/demo-0.0.1-SNAPS
 
 EXPOSE 8081
 ENTRYPOINT [ "java", "-jar", "/app/target/demo-0.0.1-SNAPSHOT.jar", "--server.port=8081" ]
+#ENTRYPOINT [ "java", "-cp", "app:app/lib/*", "com.example.demo.DemoApplication", "--server.port=8081"]

@@ -23,7 +23,7 @@ public class TestSftpFileTransfer implements CommandLineRunner {
     private String username = "etechlog_azure_ete";
     private String password = "etechlog_azure_pwd";
     private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
-    private String remoteDir = "/etlg001/in/";
+    private String remoteDir = "/etlg001/in";
     private String makeOwnDir = "/testing-sftp";
 
 	@Autowired
@@ -38,7 +38,7 @@ public class TestSftpFileTransfer implements CommandLineRunner {
 		//logger.info("Download result: " + String.valueOf(isDownloaded));
 		
 		logger.info("Start upload file");
-		boolean isUploaded = fileTransferService.uploadFile("src/main/resources/B-LUC-202210280305-CX777.xml", "/readme.txt");
+		boolean isUploaded = fileTransferService.uploadFile("/tmp/B-LUC-202210280305-CX777.xml", remoteDir +"/"+ "readme.txt");
 		
 		//this.whenUploadFileUsingSshj_thenSuccess();
 		
@@ -69,7 +69,7 @@ public class TestSftpFileTransfer implements CommandLineRunner {
         SFTPClient sftpClient = sshClient.newSFTPClient();
         sftpClient.mkdir(makeOwnDir);
         sftpClient.chmod(localFile, 0777);
-        sftpClient.put(localFile, remoteDir + "/" + "outputFile.txt");
+        sftpClient.put("/tmp/B-LUC-202210280305-CX777.xml", remoteDir + "/" + "outputFile.txt");
         sftpClient.close();
         sshClient.disconnect();
     }
