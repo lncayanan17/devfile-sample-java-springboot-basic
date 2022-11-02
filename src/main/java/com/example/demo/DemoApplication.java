@@ -17,7 +17,7 @@ import java.io.File;
 @SpringBootApplication
 public class DemoApplication {
 
-    private String remoteHost = "mft-ext-pat.ete.cathaypacific.com";
+    private String remoteHost = "mft-int-pat.ete.cathaypacific.com";
     private String username = "etechlog_azure_ete";
     private String password = "etechlog_azure_pwd";
     private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
