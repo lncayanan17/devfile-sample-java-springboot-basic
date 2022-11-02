@@ -53,7 +53,8 @@ public class DemoApplication {
         
         SSHClient sshClient = setupSshj();
         SFTPClient sftpClient = sshClient.newSFTPClient();
-        sftpClient.put(localFile, remoteDir + "A-LUC-202210280305-CX777.xml");
+        sftpClient.mkdir("/lucky-ivan-test");
+        //sftpClient.put(localFile, remoteDir + "A-LUC-202210280305-CX777.xml");
         sftpClient.close();
         sshClient.disconnect();
     }
