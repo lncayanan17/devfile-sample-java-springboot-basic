@@ -93,7 +93,6 @@ public class TestSftpFileTransfer implements CommandLineRunner {
     }
 
     public void upload(){
-
         SftpSession session = gimmeFactory().getSession();
         InputStream resourceAsStream = TestSftpFileTransfer.class.getClassLoader().getResourceAsStream("B-JRI-202210280305-CX777.xml");
         try {
