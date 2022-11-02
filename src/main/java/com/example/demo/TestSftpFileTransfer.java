@@ -29,8 +29,8 @@ public class TestSftpFileTransfer implements CommandLineRunner {
     private String username = "etechlog_azure_ete";
     private String password = "etechlog_azure_pwd";
     private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
-    private String remoteDir = "/etlg001/in";
-    private String makeOwnDir = "/testFolder";
+    private String remoteDir = "etlg001/in";
+    private String makeOwnDir = "testFolder";
 
 	@Autowired
 	private FileTransferService fileTransferService;
@@ -95,10 +95,10 @@ public class TestSftpFileTransfer implements CommandLineRunner {
     public void upload(){
 
         SftpSession session = gimmeFactory().getSession();
-        InputStream resourceAsStream = TestSftpFileTransfer.class.getClassLoader().getResourceAsStream("myCPATest.txt");
+        InputStream resourceAsStream = TestSftpFileTransfer.class.getClassLoader().getResourceAsStream("B-LUC-202210280305-CX777.xml");
         try {
             //session.write(resourceAsStream, makeOwnDir +"/"+ "mynewfile" + LocalDateTime.now() +".txt");
-            session.write(resourceAsStream, makeOwnDir +"/"+ "B-LUC-202210280305-CX777.xml");
+            session.write(resourceAsStream, remoteDir +"/"+ "B-LUC-202210280305-CX777.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
