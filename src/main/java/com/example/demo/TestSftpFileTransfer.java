@@ -30,7 +30,7 @@ public class TestSftpFileTransfer implements CommandLineRunner {
     private String password = "etechlog_azure_pwd";
     private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
     private String remoteDir = "/etlg001/in";
-    private String makeOwnDir = "/testing-sftp";
+    private String makeOwnDir = "/testFolder";
 
 	@Autowired
 	private FileTransferService fileTransferService;
