@@ -95,10 +95,10 @@ public class TestSftpFileTransfer implements CommandLineRunner {
     public void upload(){
 
         SftpSession session = gimmeFactory().getSession();
-        InputStream resourceAsStream = TestSftpFileTransfer.class.getClassLoader().getResourceAsStream("B-IVN-202210280305-CX777.xml");
+        InputStream resourceAsStream = TestSftpFileTransfer.class.getClassLoader().getResourceAsStream("B-JRI-202210280305-CX777.xml");
         try {
             //session.write(resourceAsStream, makeOwnDir +"/"+ "mynewfile" + LocalDateTime.now() +".txt");
-            session.write(resourceAsStream, remoteDir +"/"+ "B-IVN-202210280305-CX777.xml");
+            session.write(resourceAsStream, remoteDir +"/"+ "B-JRI-202210280305-CX777.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
