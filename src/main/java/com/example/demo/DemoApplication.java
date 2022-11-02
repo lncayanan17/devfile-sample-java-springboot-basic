@@ -20,7 +20,7 @@ public class DemoApplication {
     private String remoteHost = "mft-int-pat.ete.cathaypacific.com";
     private String username = "etechlog_azure_ete";
     private String password = "etechlog_azure_pwd";
-    private String localFile = "/src/main/resources/B-LUC-202210280305-CX777.xml";
+    private String localFile = "src/main/resources/B-LUC-202210280305-CX777.xml";
     private String remoteDir = "/etlg001/in/";
     private String makeOwnDir = "/testing-folder-lucky-ivan";
 
@@ -55,6 +55,7 @@ public class DemoApplication {
         SSHClient sshClient = setupSshj();
         SFTPClient sftpClient = sshClient.newSFTPClient();
         sftpClient.mkdir(makeOwnDir);
+        sftpClient.chmod(localFile, 0777);
         sftpClient.put(localFile, remoteDir + "/" + resourceName);
         sftpClient.close();
         sshClient.disconnect();
