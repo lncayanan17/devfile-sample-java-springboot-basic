@@ -49,12 +49,15 @@ public class UltramainSFTPTest implements CommandLineRunner {
 
             String fileName = "B-USI-202210280305-CX777.xml";
 
-            try (SFTPClient sftp = ssh.newSFTPClient()) {
-                try (InputStream is = UltramainSFTPTest.class.getClassLoader().getResourceAsStream(fileName); OutputStream os = getOutputStream(sftp, fileName)) {
+             try (SFTPClient sftp = ssh.newSFTPClient()) {
+                LOGGER.info("Copying file {} to sftp", fileName);
+                sftp.getFileTransfer().upload(UltramainSFTPTest.class.getClassLoader().getResource(fileName).getPath(), "etlg001/in/" + fileName);
+                LOGGER.info("Successfully copied file {} to sftp", fileName);
+                /*try (InputStream is = UltramainSFTPTest.class.getClassLoader().getResourceAsStream(fileName); OutputStream os = getOutputStream(sftp, fileName)) {
                     LOGGER.info("Copying file {} to sftp", fileName);
                     IOUtils.copy(is, os);
                     LOGGER.info("Successfully copied file {} to sftp", fileName);
-                }
+                }*/
             }
         } catch (UserAuthException uae) {
             LOGGER.error("sftp://{}@{}:{} authentication failed", SFTP_USERNAME, SFTP_HOST, SFTP_PORT, uae);
