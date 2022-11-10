@@ -50,7 +50,7 @@ public class UltramainSFTPTest2 implements CommandLineRunner {
 
             String fileName = "B-LUC-202210280305-CX777.xml";
 
-            try (InputStream is = UltramainSFTPTest2.class.getClassLoader().getResourceAsStream(fileName); OutputStream os = sftp.put("/home/obs/"+fileName)) {
+            try (InputStream is = UltramainSFTPTest2.class.getClassLoader().getResourceAsStream(fileName); OutputStream os = sftp.put("/etlg001/in/"+fileName)) {
                 LOGGER.info("Copying file {} to sftp", fileName);
                 IOUtils.copy(is, os);
                 LOGGER.info("Successfully copied file {} to sftp", fileName);
