@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 
-@Component
-@Order(1)
+//@Component
+//@Order(1)
 public class UltramainSFTPTest implements CommandLineRunner {
     private static final String SFTP_USERNAME = "etechlog_azure_ete";
     private static final String SFTP_HOST = "mft-int-pat.ete.cathaypacific.com";
