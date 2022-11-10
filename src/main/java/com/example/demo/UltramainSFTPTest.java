@@ -52,7 +52,7 @@ public class UltramainSFTPTest implements CommandLineRunner {
 
             try (SFTPClient sftp = ssh.newSFTPClient()) {
                 LOGGER.info("Copying file {} to sftp using upload function", fileName);
-                sftp.getFileTransfer().upload(fileName, "etlg001/in/demo.jar");
+                sftp.getFileTransfer().upload(fileName, "etlg001/in/demo-0.0.1-SNAPSHOT.jar");
                 LOGGER.info("Successfully copied file {} to sftp using upload function", fileName);
                 // try (InputStream is = UltramainSFTPTest.class.getClassLoader().getResourceAsStream(fileName); OutputStream os = getOutputStream(sftp, fileName)) {
                 //     LOGGER.info("Copying file {} to sftp", fileName);
